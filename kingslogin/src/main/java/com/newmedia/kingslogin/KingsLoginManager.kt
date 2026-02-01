@@ -38,9 +38,9 @@ class KingsLoginManager internal constructor() {
     internal fun onActivityResult(resultCode: Int, data: Intent?, callback: KingsLoginCallback): Boolean {
         return when(resultCode) {
             Activity.RESULT_OK -> {
-                val token = data!!.getStringExtra("code")
-                val acceptedScopes = data.getStringArrayListExtra("accepted_scopes")
-                val rejectedScopes = data.getStringArrayListExtra("rejected_scopes")
+                val token = data!!.getStringExtra("code") ?: ""
+                val acceptedScopes = data.getStringArrayListExtra("accepted_scopes") ?: ArrayList()
+                val rejectedScopes = data.getStringArrayListExtra("rejected_scopes") ?: ArrayList()
                 callback.onSuccess(token, KcScopes(acceptedScopes, rejectedScopes))
                 true
             }

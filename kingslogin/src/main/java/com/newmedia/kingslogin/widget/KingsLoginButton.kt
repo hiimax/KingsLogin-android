@@ -7,8 +7,6 @@ import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import com.newmedia.kingslogin.R
 import com.newmedia.kingslogin.helper.KingsLogin.requestPermissions
-import kotlinx.android.synthetic.main.kingslogin_button_view.view.*
-
 class KingsLoginButton @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : FrameLayout(context, attrs, defStyleAttr) {
 
     init {
@@ -19,17 +17,18 @@ class KingsLoginButton @JvmOverloads constructor(context: Context, attrs: Attrib
 
     private var scopes: List<String> = listOf("user")
 
+    private val kingsLoginButton: FrameLayout by lazy { findViewById<FrameLayout>(R.id.kings_login_button) }
+
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
 
-        kings_login_button
-                .setOnClickListener {
-                    if (fragment != null) {
-                        requestPermissions(fragment!!, scopes)
-                    } else {
-                        requestPermissions(context, null , scopes)
-                    }
-                }
+        kingsLoginButton.setOnClickListener {
+            if (fragment != null) {
+                requestPermissions(fragment!!, scopes)
+            } else {
+                requestPermissions(context, null , scopes)
+            }
+        }
     }
 
     fun setFragment(fragment: Fragment) {
